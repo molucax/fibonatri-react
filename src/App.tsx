@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from "styled-components";
+import FunctionContainer from "./components/FunctionContainer";
+import NodeContainer from "./components/NodeContainer";
+import AppProvider from './context/AppContext';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppProvider>
+      <Wrapper>
+        <Top>
+          <NodeContainer value={7} level={0} hash={"0"} />
+        </Top>
+        <Bottom>
+          <Left>
+            <FunctionContainer />
+          </Left>
+        </Bottom>
+      </Wrapper>
+    </AppProvider>
   );
 }
 
-export default App;
+const Wrapper = styled.div`
+  height: 100vh;
+  width: 100vw;
+`
+const Top = styled.div`
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+const Bottom = styled.div`
+  width: 100%;
+  height: 50%;
+`
+
+const Left = styled.div`
+  width: 50%;
+  height: 100%;
+`
