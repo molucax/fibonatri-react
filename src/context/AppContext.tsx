@@ -1,8 +1,9 @@
 import React, { createContext, useReducer, useState } from "react";
 import reducer from "./reducer";
-import nodes from "../data/nodes";
+import { nodesON2 } from "../data/nodes";
 import functions from "../data/functions";
-import { IState } from "../interfaces/interfaces"
+import { INode, IState } from "../interfaces/interfaces";
+import { purple, yellow, blue, grey } from "../helpers/palette";
 import { TAction } from "../context/reducer";
 
 interface IProviderProps {
@@ -21,28 +22,29 @@ interface IContext {
 }
 
 const initialState: IState = {
-    nodes: nodes,
-    currentNode: nodes[0],
+    nodes: nodesON2,
+    currentNode: nodesON2[0],
     currentFunction: functions[0],
+    memo: {},
 }
 
 export const AppContext = createContext<IContext>({} as IContext);
 
 export default function AppProvider ({ children }: IProviderProps) {
 
-    const [state, dispatch] = useReducer(reducer, initialState)
+    const [state, dispatch] = useReducer(reducer, initialState);
     
-    const [done, setDone] = useState(false)
-    const [line, setLine] = useState(1)
+    const [done, setDone] = useState(false);
+    const [line, setLine] = useState(1);
 
     function getNodeColor(hash: string) {
-        let node = state.nodes.find(x => x.hash === hash)
-        let currentNode = state.currentNode
+        let node = state.nodes.find((x: INode) => x.hash === hash);
+        let currentNode = state.currentNode;
         if(node && currentNode) {
-            if (currentNode.hash === node.hash) return "#7b3c59" // violeta
-            else if (currentNode.solved?.includes(node.hash)) return "#248888" // azul
-            else if (node.hash < currentNode.hash) return "#ece58a" // amarillo 
-            else return "#444444" // gris
+            if (currentNode.hash === node.hash) return purple;
+            else if (currentNode.solved?.includes(node.hash)) return blue ;
+            else if (node.hash < currentNode.hash) return yellow;
+            else return grey;
         }
     }
 
@@ -53,10 +55,10 @@ export default function AppProvider ({ children }: IProviderProps) {
 
             getNodeColor,
 
-            line,setLine,
-            done, setDone
+            line, setLine,
+            done, setDone,
         }}>
             { children }
         </AppContext.Provider>
-    )
+    );
 }

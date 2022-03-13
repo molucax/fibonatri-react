@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { AppContext } from "../context/AppContext";
 import { grey } from "../helpers/palette";
+import { colorizeLine } from "../helpers/colorizeLine";
 
 interface IFunctionProps {
     returnLine: number;
@@ -16,16 +17,16 @@ interface IDotProps {
 export default function Function ({ returnLine, code }: IFunctionProps) {
 
   const { state, line, setLine, setDone } = useContext(AppContext);
-  const currentNode = state?.currentNode;
+  const { currentNode, currentFunction } = state
 
   useEffect(() => {
     if(currentNode && (line < returnLine)) setTimeout(() => setLine(line+1), 500)
     else setDone(true)
-  }, [line])
+  }, [line, currentNode, setLine, setDone, returnLine])
 
   function getDotColor(turn: number) {
-    if(turn === returnLine) return "green"
-    else return "red"
+    if(turn === returnLine) return "green";
+    else return "white";
   }
   return (
     <Wrapper>
@@ -37,27 +38,22 @@ export default function Function ({ returnLine, code }: IFunctionProps) {
                   <LineContainer>
                     <DotContainer
                         style={{ 
-                            visibility: 
-                            line === code[key].turn && code[key].turn !== 1 
+                            visibility: line === code[key].turn && code[key].turn !== 1 
                                 ? undefined 
                                 : "hidden"
                         }}
                     >
-                    { 
                         <Dot color={getDotColor(code[key].turn)}>
                             ●
                         </Dot> 
-                    }
                     </DotContainer>
                     <Line
-                        style={
-                            {
-                                paddingLeft: `${(code[key].space * 3).toString()}vw`,
-                                color: ((code[key].turn === returnLine && code[key].turn === line) || code[key].turn === 1)
-                                            ? code[key].color 
-                                            : grey
-                            } 
-                        }
+                        style={{
+                            paddingLeft: `${(code[key].space * 3).toString()}vw`,
+                            color: colorizeLine(currentNode?.value, currentFunction?.complexity, code[key], returnLine, line)
+                                        ? code[key].color 
+                                        : grey
+                        }}
                     >
                         {code[key].text}
                     </Line><br/>

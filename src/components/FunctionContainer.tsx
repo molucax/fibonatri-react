@@ -14,7 +14,10 @@ export default function FunctionContainer() {
             2 : 3
         ) : (
             currentNode?.value === 1 || currentNode?.value === 2 ? 
-            2 : 3
+            3 
+            : (
+                5
+            )
         )
     const linesQty: number = 
         currentFunction?.complexity === "on2" ? 4 : 6
@@ -32,5 +35,5 @@ export default function FunctionContainer() {
 
 const Wrapper = styled.div`
     width: 100%;
-    height: 100%;
+    height: 55%;
 `

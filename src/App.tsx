@@ -1,5 +1,8 @@
 import styled from "styled-components";
+import Complexity from "./components/Complexity";
+import Control from "./components/Control";
 import FunctionContainer from "./components/FunctionContainer";
+import MemoContainer from "./components/MemoContainer";
 import NodeContainer from "./components/NodeContainer";
 import AppProvider from './context/AppContext';
 
@@ -13,7 +16,14 @@ export default function App() {
         <Bottom>
           <Left>
             <FunctionContainer />
+            <ComplexityAndMemo>
+              <Complexity />
+              <MemoContainer />
+            </ComplexityAndMemo>
           </Left>
+          <Right>
+            <Control />
+          </Right>
         </Bottom>
       </Wrapper>
     </AppProvider>
@@ -34,10 +44,23 @@ const Top = styled.div`
 `
 const Bottom = styled.div`
   width: 100%;
-  height: 50%;
+  height: 55%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 `
-
 const Left = styled.div`
   width: 50%;
   height: 100%;
+`
+const Right = styled.div`
+  width: 50%;
+  height: 100%;
+`
+const ComplexityAndMemo = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  height: 50%;
 `
