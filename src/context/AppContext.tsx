@@ -7,58 +7,61 @@ import { purple, yellow, blue, grey } from "../helpers/palette";
 import { TAction } from "../context/reducer";
 
 interface IProviderProps {
-    children: JSX.Element | JSX.Element[]; 
-    // también lo puedo tipar como "React.ReactNode"
+  children: JSX.Element | JSX.Element[];
+  // también lo puedo tipar como "React.ReactNode"
 }
 
 interface IContext {
-    state: IState,
-    dispatch: React.Dispatch<TAction>,
-    getNodeColor: (hash: string) => string | undefined;
-    line: number;
-    setLine: React.Dispatch<React.SetStateAction<number>>;
-    done: boolean;
-    setDone: React.Dispatch<React.SetStateAction<boolean>>;
+  state: IState;
+  dispatch: React.Dispatch<TAction>;
+  getNodeColor: (hash: string) => string | undefined;
+  line: number;
+  setLine: React.Dispatch<React.SetStateAction<number>>;
+  done: boolean;
+  setDone: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const initialState: IState = {
-    nodes: nodesON2,
-    currentNode: nodesON2[0],
-    currentFunction: functions[0],
-    memo: {},
-}
+  nodes: nodesON2,
+  currentNode: nodesON2[0],
+  currentFunction: functions[0],
+  memo: {},
+};
 
 export const AppContext = createContext<IContext>({} as IContext);
 
-export default function AppProvider ({ children }: IProviderProps) {
+export default function AppProvider({ children }: IProviderProps) {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-    const [state, dispatch] = useReducer(reducer, initialState);
-    
-    const [done, setDone] = useState(false);
-    const [line, setLine] = useState(1);
+  const [done, setDone] = useState(false);
+  const [line, setLine] = useState(1);
 
-    function getNodeColor(hash: string) {
-        let node = state.nodes.find((x: INode) => x.hash === hash);
-        let currentNode = state.currentNode;
-        if(node && currentNode) {
-            if (currentNode.hash === node.hash) return purple;
-            else if (currentNode.solved?.includes(node.hash)) return blue ;
-            else if (node.hash < currentNode.hash) return yellow;
-        }
-        return grey;
+  function getNodeColor(hash: string) {
+    let node = state.nodes.find((x: INode) => x.hash === hash);
+    let currentNode = state.currentNode;
+    if (node && currentNode) {
+      if (currentNode.hash === node.hash) return purple;
+      else if (currentNode.solved?.includes(node.hash)) return blue;
+      else if (node.hash < currentNode.hash) return yellow;
     }
+    return grey;
+  }
 
-    return (
-        <AppContext.Provider value={{
-            state, 
-            dispatch,
+  return (
+    <AppContext.Provider
+      value={{
+        state,
+        dispatch,
 
-            getNodeColor,
+        getNodeColor,
 
-            line, setLine,
-            done, setDone,
-        }}>
-            { children }
-        </AppContext.Provider>
-    );
+        line,
+        setLine,
+        done,
+        setDone,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
 }
