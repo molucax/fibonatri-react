@@ -1,4 +1,4 @@
-import { nodesON, nodesON2 } from "../data/nodes";
+import { nodesON } from "../data/nodes";
 
 export function disableNodeClick(complexity: string, hash: string) {
   if(complexity === "on2") return false;

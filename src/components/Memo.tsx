@@ -11,7 +11,7 @@ export default function Memo({ memo }: IMemoProps) {
   const { state } = useContext(AppContext);
   const currHash = state?.currentNode?.hash;
   const currValue = state?.currentNode?.value;
-  const memoObj = state?.currentNode?.memo;
+
   return (
     <Wrapper>
       <TitleContainer>
@@ -41,15 +41,18 @@ export default function Memo({ memo }: IMemoProps) {
                         : undefined
                     }
                   >
-                    {`${key}:   ${
-                      memo[key]
-                        ? memo[key]
-                        : `${
-                            memoObj && Number(key) - 1 in memoObj
-                              ? memoObj[Number(key) - 1]
-                              : `fibonacci(${Number(key) - 1})`
-                          } + fibonacci(${Number(key) - 2})`
-                    }`}
+                    {`${key}: 
+                        ${
+                          memo[key]
+                            ? memo[key]
+                            : `${
+                                memo &&
+                                memo[Number(key) - 1] &&
+                                Number(key) - 1 in memo
+                                  ? memo[Number(key) - 1]
+                                  : `fibonacci(${Number(key) - 1})`
+                              } + fibonacci(${Number(key) - 2})`
+                        }`}
                   </KeyValue>
                   <br />
                 </>
