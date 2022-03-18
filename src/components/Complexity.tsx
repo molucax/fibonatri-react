@@ -26,7 +26,7 @@ export default function Complexity() {
   return (
     <Wrapper>
       <Select onChange={handleSelect}>
-        <option value="on2">{"O(n²)"}</option>
+        <option value="on2">{"O(2^n)"}</option>
         <option value="on">{"O(n)"}</option>
       </Select>
     </Wrapper>
