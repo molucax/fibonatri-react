@@ -51,7 +51,7 @@ export default function reducer(state: IState, action: TAction ): IState {
 
 // ----- helpers ---- //
 
-function getNodeByHash(hash: string, array: INode[]) {
+export function getNodeByHash(hash: string, array: INode[] = nodesON) {
     return array.find(x => x.hash === hash)
 }
 

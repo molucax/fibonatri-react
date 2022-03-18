@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import CallFibonacci from "./components/CallFibonacci";
 import Complexity from "./components/Complexity";
 import Control from "./components/Control";
 import FunctionContainer from "./components/FunctionContainer";
 import MemoContainer from "./components/MemoContainer";
 import NodeContainer from "./components/NodeContainer";
-import AppProvider from './context/AppContext';
+import AppProvider from "./context/AppContext";
 
 export default function App() {
   return (
@@ -13,17 +14,20 @@ export default function App() {
         <Top>
           <NodeContainer value={7} level={0} hash={"0"} />
         </Top>
-        <Bottom>
-          <Left>
-            <FunctionContainer />
-            <ComplexityAndMemo>
+        <Middle>
+          <Grey>
+            <ComplexityContainer>
               <Complexity />
-              <MemoContainer />
-            </ComplexityAndMemo>
-          </Left>
-          <Right>
-            <Control />
-          </Right>
+            </ComplexityContainer>
+            <FunctionContainer />
+            <ControlContainer>
+              <Control />
+            </ControlContainer>
+          </Grey>
+          <MemoContainer />
+        </Middle>
+        <Bottom>
+          <CallFibonacci />
         </Bottom>
       </Wrapper>
     </AppProvider>
@@ -33,34 +37,47 @@ export default function App() {
 const Wrapper = styled.div`
   height: 100vh;
   width: 100vw;
-`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 const Top = styled.div`
   width: 100%;
-  height: 40%;
+  height: 41%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
+const Middle = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
 const Bottom = styled.div`
   width: 100%;
-  height: 55%;
+  height: 23%;
   display: flex;
-  flex-direction: row;
   justify-content: center;
-`
-const Left = styled.div`
+  align-items: center;
+`;
+const Grey = styled.div`
+  padding: 1rem;
   width: 50%;
-  height: 100%;
-`
-const Right = styled.div`
-  width: 50%;
-  height: 100%;
-`
-const ComplexityAndMemo = styled.div`
+  background: #131212;
+  border-radius: 1rem;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+const ComplexityContainer = styled.div`
   width: 100%;
-  height: 50%;
-`
+  display: flex;
+  justify-content: flex-end;
+`;
+const ControlContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  height: 1.5rem;
+`;

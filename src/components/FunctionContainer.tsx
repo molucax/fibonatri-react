@@ -4,36 +4,34 @@ import { AppContext } from "../context/AppContext";
 import Function from "./Function";
 
 export default function FunctionContainer() {
+  const { state } = useContext(AppContext);
+  const { currentNode, currentFunction } = state;
 
-    const { state } = useContext(AppContext);
-    const { currentNode, currentFunction } = state;
+  const returnLine: number =
+    currentFunction?.complexity === "on2"
+      ? currentNode?.value === 1 || currentNode?.value === 2
+        ? 2
+        : 3
+      : currentNode?.value === 1 || currentNode?.value === 2
+      ? 3
+      : currentNode?.memo[currentNode.value] &&
+        currentNode.memo[currentNode.value]["0"] !== "f"
+      ? 2
+      : 5;
 
-    const returnLine: number = 
-        currentFunction?.complexity === "on2" ? (
-            currentNode?.value === 1 || currentNode?.value === 2 ? 
-            2 : 3
-        ) : (
-            currentNode?.value === 1 || currentNode?.value === 2 ? 
-            3 
-            : (
-                5
-            )
-        )
-    const linesQty: number = 
-        currentFunction?.complexity === "on2" ? 4 : 6
-    
-    return (
-        <Wrapper>
-            <Function 
-                returnLine={returnLine} 
-                code={currentFunction?.code}
-                linesQty={linesQty}
-            /> 
-        </Wrapper>
-    );
+  const linesQty: number = currentFunction?.complexity === "on2" ? 4 : 6;
+
+  return (
+    <Wrapper>
+      <Function
+        returnLine={returnLine}
+        code={currentFunction?.code}
+        linesQty={linesQty}
+      />
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.div`
-    width: 100%;
-    height: 55%;
-`
+  width: 100%;
+`;

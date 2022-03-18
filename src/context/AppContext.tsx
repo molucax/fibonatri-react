@@ -44,8 +44,8 @@ export default function AppProvider ({ children }: IProviderProps) {
             if (currentNode.hash === node.hash) return purple;
             else if (currentNode.solved?.includes(node.hash)) return blue ;
             else if (node.hash < currentNode.hash) return yellow;
-            else return grey;
         }
+        return grey;
     }
 
     return (
