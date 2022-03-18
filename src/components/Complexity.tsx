@@ -4,10 +4,11 @@ import { AppContext } from "../context/AppContext";
 import { Actions } from "../context/reducer";
 
 export default function Complexity() {
-  const { dispatch, setLine } = useContext(AppContext);
+  const { dispatch, setLine, setDone } = useContext(AppContext);
 
   function handleSelect(e: React.ChangeEvent<HTMLSelectElement>) {
     setLine(1);
+    setDone(false);
     dispatch({
       type: Actions.SET_NODES,
       payload: e.target.value,
