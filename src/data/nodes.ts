@@ -41,7 +41,7 @@ const nodesON2: INode[] = [
   {
     hash: "1A2A3A4A5B",
     value: 1,
-    solved: ["1A2A3A4A5A" ], // 2
+    solved: ["1A2A3A4A5A", "1A2A3A4A" ], // 2, 3
     memo: null
   },
   {
