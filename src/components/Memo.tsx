@@ -42,7 +42,7 @@ export default function Memo({ memo }: IMemoProps) {
                     }
                   >
                     {`${key}: 
-                        ${
+                        ${key === "3" && currHash === "1A2A3A4A5A" ? "1 + fibonacci(1)" :
                           memo[key]
                             ? memo[key]
                             : `${
