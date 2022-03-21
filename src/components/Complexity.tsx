@@ -36,7 +36,7 @@ export default function Complexity() {
 const Wrapper = styled.div``;
 const Select = styled.select`
   background: black;
-  color: white;
+  color: lightgrey;
   padding: 0.3rem;
   font-size: 1.1rem;
   border-style: none;

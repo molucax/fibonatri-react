@@ -40,7 +40,7 @@ export default function CallFibonacci() {
 const ButtonContainer = styled.div``;
 const CallButton = styled.button`
   cursor: pointer;
-  color: white;
+  color: lightgrey;
   background: #131212;
   border-style: none;
   padding: 1rem;

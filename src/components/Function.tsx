@@ -25,7 +25,7 @@ export default function Function({ returnLine, code }: IFunctionProps) {
   }, [line, currentNode, setLine, setDone, returnLine]);
 
   function getDotColor(turn: number) {
-    if (turn === returnLine) return "white";
+    if (turn === returnLine) return "lightgrey";
     else return "black";
   }
   return (
